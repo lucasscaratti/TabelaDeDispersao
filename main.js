@@ -30,18 +30,23 @@ function programa(nomeArquivo, tamanhoTabela) {
     
    var frasesMinusculas = data.toString().toLowerCase(); 
 
-   console.log(frasesMinusculas);
+  //  console.log(frasesMinusculas);
    
-   var listaFrases = frasesMinusculas.replace(/[#]|[0-9]|[*]|[,]|[\]]|[\[]|[:]|[.]|[w]{3}|(\ba{1}\b)/g, '');
+   //precisa consertar o .net ainda
+   const REGEX = /[#]|[0-9]|[*]|[,]|[\]]|[\[]|[:]|[.]|[w]{3}|(\b[a-z]{1}\b)|[-]|[\/]|[']|[\?]|["]|[!]|[;]|[()]|[_]|[$]/g;
+   const ROMAN_NUMERALS = /(?=\b[mcdxlvi]{1,6}\b)m{0,4}(?:cm|cd|d?c{0,3})(?:xc|xl|l?x{0,3})(?:ix|iv|v?i{0,3})/g;
+   
+   frasesMinusculas = frasesMinusculas.replace(REGEX, ' ');
+   frasesMinusculas = frasesMinusculas.replace(ROMAN_NUMERALS, '');
     
    //  console.log(listaFrases);
-    var listaFrases2 = listaFrases.split(/\s+/);
+   frasesMinusculas = frasesMinusculas.split(/\s+/);
 
-    console.log(listaFrases2)
+    console.log(frasesMinusculas)
 
     var contadorDePalavras = {};
 
-    for (const palavra of listaFrases2) {
+    for (const palavra of frasesMinusculas) {
       if (contadorDePalavras[palavra]) {
         contadorDePalavras[palavra]++;
       } else {
@@ -91,7 +96,7 @@ function programa(nomeArquivo, tamanhoTabela) {
     // console.log(palavra);
 
     }
-    console.log(arrayFinal);
+    console.table(arrayFinal);
   });
 }
 
